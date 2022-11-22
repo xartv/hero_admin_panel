@@ -1,4 +1,9 @@
-
+import { Formik, Form, Field, ErrorMessage, } from 'formik';
+import { object, string } from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import {useHttp} from '../../hooks/http.hook';
+import { heroAdd } from '../../actions';
+import { v4 as uuidv4 } from 'uuid';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -11,48 +16,83 @@
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    return (
-        <form className="border p-4 shadow-lg rounded">
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
-                <input 
-                    required
-                    type="text" 
-                    name="name" 
-                    className="form-control" 
-                    id="name" 
-                    placeholder="Как меня зовут?"/>
-            </div>
+	const dispatch = useDispatch();
+	const {request} = useHttp();
 
-            <div className="mb-3">
-                <label htmlFor="text" className="form-label fs-4">Описание</label>
-                <textarea
-                    required
-                    name="text" 
-                    className="form-control" 
-                    id="text" 
-                    placeholder="Что я умею?"
-                    style={{"height": '130px'}}/>
-            </div>
+	const onSubmit = ({name, description, element}) => {
+		const newHero = {
+			id: uuidv4(),
+			name,
+			description,
+			element,
+		}
+		console.log(newHero);
+		request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
+			.then(() => dispatch(heroAdd(newHero)))
+	}
 
-            <div className="mb-3">
-                <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
-                <select 
-                    required
-                    className="form-select" 
-                    id="element" 
-                    name="element">
-                    <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
-                </select>
-            </div>
+	return (
+		<Formik
+			initialValues={{
+				name: '',
+				description: '',
+				element: '',
+			}}
+			validationSchema={object({
+				name: string()
+									.min(2, 'Need 2 or more symbols')
+									.required('Name is required'),
+				description: string()
+												.min(5, 'Need 5 or more symbols'),
+				element: string()
+								.required(),
+			})}
+			onSubmit={onSubmit}
+		>
+			<Form className="border p-4 shadow-lg rounded">
+					<div className="mb-3">
+							<label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
+							<Field  
+								name="name" 
+								className="form-control" 
+								id="name" 
+								placeholder="Как меня зовут?"/>
+							<ErrorMessage name="name" component='div'/>
+					</div>
 
-            <button type="submit" className="btn btn-primary">Создать</button>
-        </form>
-    )
+					<div className="mb-3">
+							<label htmlFor="text" className="form-label fs-4">Описание</label>
+							<Field
+								name="description" 
+								className="form-control" 
+								id="description" 
+								placeholder="Что я умею?"
+								style={{"height": '130px'}}
+								as="textarea"/>
+							<ErrorMessage name="description" component='div'/>
+					</div>
+
+					<div className="mb-3">
+							<label htmlFor="element" className="form-label">Выбрать элемент героя</label>
+							<Field
+								className="form-select" 
+								id="element" 
+								name="element"
+								as="select">
+									<option >Я владею элементом...</option>
+									<option value="fire">Огонь</option>
+									<option value="water">Вода</option>
+									<option value="wind">Ветер</option>
+									<option value="earth">Земля</option>
+							</Field>
+							<ErrorMessage name="element" component='div'/>
+					</div>
+
+					<button type="submit" className="btn btn-primary">Создать</button>
+			</Form>
+		</Formik>
+		
+)
 }
 
 export default HeroesAddForm;

@@ -54,7 +54,7 @@ const HeroesList = () => {
             return <HeroesListItem key={id} onHeroDelete={() => onHeroDelete(id)} {...props}/>
         })
     }
-
+	
     const elements = renderHeroesList(heroes);
     return (
         <ul>

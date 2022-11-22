@@ -2,7 +2,7 @@ const initialState = {
     heroes: [],
     heroesLoadingStatus: 'idle',
 		heroesDeletingStatus: 'idle',
-    filters: []
+    filters: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,16 +28,21 @@ const reducer = (state = initialState, action) => {
 						...state,
 						heroesDeletingStatus: 'deleting'
 					}
-					case 'HEROES_DELETED':
-						return {
+				case 'HEROES_DELETED':
+					return {
+						...state,
+						heroesDeletingStatus: 'idle'
+					}
+				case 'HEROES_DELETING_ERROR':
+					return {
 							...state,
-							heroesDeletingStatus: 'idle'
-						}
-						case 'HEROES_DELETING_ERROR':
-							return {
-									...state,
-									heroesDeletingStatus: 'error'
-							}
+							heroesDeletingStatus: 'error'
+					}
+				case 'HERO_ADD':
+					return {
+						...state,
+						heroes: [...state.heroes, action.payload],
+					}
         default: return state
     }
 }

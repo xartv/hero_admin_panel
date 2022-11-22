@@ -34,3 +34,10 @@ export const heroesDeletingError = () => {
 		type: 'HEROES_DELETING_ERROR',
 	}
 }
+
+export const heroAdd = (hero) => {
+	return {
+		type: 'HERO_ADD',
+		payload: hero,
+	}
+}
