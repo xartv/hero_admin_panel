@@ -1,36 +1,5 @@
 {
-  "heroes": [
-    {
-      "id": "d62be817-9d37-41db-af82-9368175f51fa",
-      "name": "Первый герой",
-      "description": "lololol",
-      "element": "fire"
-    },
-    {
-      "id": "e187ef10-2a87-48e5-912b-98d297cb2840",
-      "name": "Второй герой",
-      "description": "kekekeke",
-      "element": "water"
-    },
-    {
-      "id": "436eafd2-7cfd-4879-8b08-9384b8270a51",
-      "name": "Тёма",
-      "description": "hehehehe",
-      "element": "wind"
-    },
-    {
-      "id": "8c995819-7883-46eb-8024-33e180019b90",
-      "name": "Кто-то",
-      "description": "pepepepepe",
-      "element": "earth"
-    },
-    {
-      "id": "982431b0-41d0-48d6-9df0-64d22907c349",
-      "name": "Тест",
-      "description": "",
-      "element": "fire"
-    }
-  ],
+  "heroes": [],
   "filters": [
     {
       "name": "all",

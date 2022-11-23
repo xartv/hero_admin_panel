@@ -43,6 +43,7 @@ const HeroesAddForm = () => {
 	}
 
 	const optionElements = createOptions(filters);
+	const filtersName = filters.map(item => item.name);
 
 	return (
 		<Formik
@@ -58,6 +59,7 @@ const HeroesAddForm = () => {
 				description: string()
 												.min(5, 'Need 5 or more symbols'),
 				element: string()
+								.oneOf(filtersName, 'Please select one of listed elements')
 								.required(),
 			})}
 			onSubmit={(values, actions) => {
@@ -73,7 +75,7 @@ const HeroesAddForm = () => {
 								className="form-control" 
 								id="name" 
 								placeholder="Как меня зовут?"/>
-							<ErrorMessage name="name" component='div'/>
+							<ErrorMessage name="name" render={msg => <div className='error'>{msg}</div>}/>
 					</div>
 
 					<div className="mb-3">
@@ -85,7 +87,7 @@ const HeroesAddForm = () => {
 								placeholder="Что я умею?"
 								style={{"height": '130px'}}
 								as="textarea"/>
-							<ErrorMessage name="description" component='div'/>
+							<ErrorMessage name="description" render={msg => <div className='error'>{msg}</div>}/>
 					</div>
 
 					<div className="mb-3">
@@ -98,7 +100,7 @@ const HeroesAddForm = () => {
 									<option >Я владею элементом...</option>
 									{optionElements}
 							</Field>
-							<ErrorMessage name="element" component='div'/>
+							<ErrorMessage name="element" render={msg => <div className='error'>{msg}</div>}/>
 					</div>
 
 					<button type="submit" className="btn btn-primary">Создать</button>
