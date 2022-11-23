@@ -2,7 +2,7 @@ import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroesDeleting, heroesDeleted, heroesDeletingError } from '../../actions';
+import { heroesFetching, heroesFetched, heroesFetchingError, heroesDeleting, heroesDeleted, heroesDeletingError, filtersFetching, filtersFetched, filtersFetchingError } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -17,9 +17,9 @@ const HeroesList = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        heroesListRequest();
-
-        // eslint-disable-next-line
+			heroesListRequest();
+			filtersListRequest();
+			// eslint-disable-next-line
     }, []);
 
     if (heroesLoadingStatus === "loading") {
@@ -35,12 +35,22 @@ const HeroesList = () => {
             .catch(() => dispatch(heroesFetchingError()));
 		}
 
+		const filtersListRequest = () => {
+			dispatch(filtersFetching());
+        request("http://localhost:3001/filters")
+            .then(data => dispatch(filtersFetched(data)))
+            .catch(() => dispatch(filtersFetchingError()));
+		}
+
+		const heroDeleteFromState = (id, heroes) => {
+			return heroes.filter(hero => hero.id !== id);
+		}
+
 		const onHeroDelete = (id) => {
 			dispatch(heroesDeleting());
 			request(`http://localhost:3001/heroes/${id}`, 'DELETE')
 				.then(() => {
-					dispatch(heroesDeleted());
-					heroesListRequest();
+					dispatch(heroesDeleted(heroDeleteFromState(id, heroes)));
 				})
 				.catch(() => dispatch(heroesDeletingError()));
 		}

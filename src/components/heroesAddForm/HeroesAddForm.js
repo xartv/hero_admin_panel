@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage, } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHttp} from '../../hooks/http.hook';
@@ -17,7 +17,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 const HeroesAddForm = () => {
 	const dispatch = useDispatch();
-	const {request} = useHttp();
+	const { request } = useHttp();
+	const { filters } = useSelector(state => state);
 
 	const onSubmit = ({name, description, element}) => {
 		const newHero = {
@@ -26,10 +27,22 @@ const HeroesAddForm = () => {
 			description,
 			element,
 		}
-		console.log(newHero);
+
 		request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
 			.then(() => dispatch(heroAdd(newHero)))
 	}
+
+	const createOptions = (optionsList) => {
+		return optionsList
+						.filter(option => option.name !== 'all')
+						.map(option => {
+							return (
+								<option value={option.name}>{option.title}</option>
+								)
+							})
+	}
+
+	const optionElements = createOptions(filters);
 
 	return (
 		<Formik
@@ -47,7 +60,10 @@ const HeroesAddForm = () => {
 				element: string()
 								.required(),
 			})}
-			onSubmit={onSubmit}
+			onSubmit={(values, actions) => {
+				onSubmit(values);
+				actions.resetForm();
+			}}
 		>
 			<Form className="border p-4 shadow-lg rounded">
 					<div className="mb-3">
@@ -80,10 +96,7 @@ const HeroesAddForm = () => {
 								name="element"
 								as="select">
 									<option >Я владею элементом...</option>
-									<option value="fire">Огонь</option>
-									<option value="water">Вода</option>
-									<option value="wind">Ветер</option>
-									<option value="earth">Земля</option>
+									{optionElements}
 							</Field>
 							<ErrorMessage name="element" component='div'/>
 					</div>
