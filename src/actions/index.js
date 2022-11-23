@@ -61,3 +61,10 @@ export const filtersFetchingError = () => {
 		type: 'FILTERS_FETCHING_ERROR',
 	}
 }
+
+export const activeFilterChange = (filter) => {
+	return {
+		type: 'ACTIVE_FILTER_CHANGE',
+		payload: filter,
+	}
+}

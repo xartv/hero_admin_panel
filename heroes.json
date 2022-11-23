@@ -23,13 +23,39 @@
       "name": "Кто-то",
       "description": "pepepepepe",
       "element": "earth"
+    },
+    {
+      "id": "982431b0-41d0-48d6-9df0-64d22907c349",
+      "name": "Тест",
+      "description": "",
+      "element": "fire"
     }
   ],
-	"filters": [
-		{"name": "all", "title": "Все"},
-		{"name": "fire", "title": "Огонь"},
-		{"name": "water", "title": "Вода"},
-		{"name": "wind", "title": "Ветер"},
-		{"name": "earth", "title": "Земля"}
-	]
+  "filters": [
+    {
+      "name": "all",
+      "title": "Все",
+      "className": "btn btn-outline-dark"
+    },
+    {
+      "name": "fire",
+      "title": "Огонь",
+      "className": "btn btn-danger"
+    },
+    {
+      "name": "water",
+      "title": "Вода",
+      "className": "btn btn-primary"
+    },
+    {
+      "name": "wind",
+      "title": "Ветер",
+      "className": "btn btn-success"
+    },
+    {
+      "name": "earth",
+      "title": "Земля",
+      "className": "btn btn-secondary"
+    }
+  ]
 }

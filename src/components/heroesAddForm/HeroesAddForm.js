@@ -37,7 +37,7 @@ const HeroesAddForm = () => {
 						.filter(option => option.name !== 'all')
 						.map(option => {
 							return (
-								<option value={option.name}>{option.title}</option>
+								<option key={uuidv4()} value={option.name}>{option.title}</option>
 								)
 							})
 	}
