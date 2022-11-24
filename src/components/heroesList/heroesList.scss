@@ -1,0 +1,13 @@
+.heroItem-enter {
+  opacity: 0;
+}
+.heroItem-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.heroItem-exit {
+  opacity: 1;
+}
+.heroItem-exit-active {
+  opacity: 0;
+}
