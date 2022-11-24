@@ -5,20 +5,10 @@ import {useHttp} from '../../hooks/http.hook';
 import { heroAdd } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
-
 const HeroesAddForm = () => {
 	const dispatch = useDispatch();
 	const { request } = useHttp();
-	const { filters } = useSelector(state => state);
+	const { filters } = useSelector(state => state.filters); // не забыть, что теперь у нас комбинированный редьюсер
 
 	const onSubmit = ({name, description, element}) => {
 		const newHero = {

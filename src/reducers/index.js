@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
 					return {
 						...state,
 						heroesDeletingStatus: 'idle',
-						heroes: action.payload,
+						heroes: state.heroes.filter(hero => hero.id !== action.payload),
 					}
 				case 'HEROES_DELETING_ERROR':
 					return {
