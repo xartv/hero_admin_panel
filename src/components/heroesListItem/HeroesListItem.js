@@ -1,6 +1,8 @@
 
 const HeroesListItem = ({name, description, element, index, onHeroDelete}) => {
 
+	//console.log(`render ${name}`);
+
 	let elementClassName;
 
 	switch (element) {
