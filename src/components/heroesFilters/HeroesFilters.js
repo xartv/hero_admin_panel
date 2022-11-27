@@ -1,7 +1,7 @@
 import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { activeFilterChange, filtersFetching, filtersFetched, filtersFetchingError } from '../../actions';
+import { activeFilterChange, fetchFilters } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 
@@ -13,7 +13,7 @@ const HeroesFilters = () => {
 	const {request} = useHttp();
 
 	useEffect(() => {
-		filtersListRequest();
+		dispatch(fetchFilters(request))
 		// eslint-disable-next-line
 	}, [])
 
@@ -21,13 +21,6 @@ const HeroesFilters = () => {
 		return <Spinner/>;
 	} else if (filtersLoadingStatus === "error") {
 		return <h5 className="text-center mt-5">Ошибка загрузки</h5>
-	}
-
-	const filtersListRequest = () => {
-		dispatch(filtersFetching());
-			request("http://localhost:3001/filters")
-					.then(data => dispatch(filtersFetched(data)))
-					.catch(() => dispatch(filtersFetchingError()));
 	}
 
 	const createFilterButtons = (filtersList) => {

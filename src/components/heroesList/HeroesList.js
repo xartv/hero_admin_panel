@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
 import { createSelector } from 'reselect'
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleting, heroDeleted, heroDeletingError } from '../../actions';
+import { fetchHeroes, heroDeleting, heroDeleted, heroDeletingError } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -43,7 +43,7 @@ const HeroesList = () => {
 	const {request} = useHttp();
 
 	useEffect(() => {
-		heroesListRequest();
+		dispatch(fetchHeroes(request));
 		// eslint-disable-next-line
 	}, []);
 
@@ -61,13 +61,6 @@ const HeroesList = () => {
 			return <Spinner/>;
 	} else if (heroesLoadingStatus === "error") {
 			return <h5 className="text-center mt-5">Ошибка загрузки</h5>
-	}
-
-	const heroesListRequest = () => {
-		dispatch('HEROES_FETCHING');
-			request("http://localhost:3001/heroes")
-					.then(data => dispatch(heroesFetched(data)))
-					.catch(() => dispatch(heroesFetchingError()));
 	}
 
 	const renderHeroesList = (arr) => {
