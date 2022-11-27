@@ -1,24 +1,5 @@
 {
-  "heroes": [
-    {
-      "id": "a36920f5-ccbf-46a6-8396-8fb9df1bcc11",
-      "name": "beast",
-      "description": "",
-      "element": "water"
-    },
-    {
-      "id": "af476bfc-6b11-463a-88b0-a5226e0c9c97",
-      "name": "Artem",
-      "description": "",
-      "element": "fire"
-    },
-    {
-      "id": "2e36f199-126f-4a45-be49-e5b04065be55",
-      "name": "ARTEM VASILEV",
-      "description": "",
-      "element": "earth"
-    }
-  ],
+  "heroes": [],
   "filters": [
     {
       "name": "all",

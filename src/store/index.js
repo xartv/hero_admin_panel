@@ -1,5 +1,5 @@
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+
 import heroes from '../reducers/heroes';
 import filters from '../reducers/filters';
 
@@ -10,34 +10,13 @@ const stringMiddleware = ({dispatch, getState}) => (next) => (action) => { // п
 		})
 	}
 	return next(action);
-}
+} 
 
-//const enhancer = (createStore) => (...args) => {
-//	const store = createStore(...args);
-
-//	const oldDispatch = store.dispatch; // сохраняем старый диспетч
-//	store.dispatch = (action) => { // меняем логику диспэтча, когда приходит строка, то эту строку мы используем в качестве type для оригинального диспэтча
-//		if (typeof action === 'string') {
-//			return oldDispatch({
-//				type: action
-//			})
-//		}
-//		return oldDispatch(action);
-//	}
-//	return store; 
-//}
-
-//const store = createStore(
-//									combineReducers({heroes, filters}), 
-//									compose(
-//										enhancer, 
-//										window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())); // используем compose в качестве второго аргумента, эта функция объединяет несколько энхенсеров, нужно только учитывать порядок энхэнсеров, чтобы не было ошибок
-
-const store = createStore( // используем middleware с помощью applyMiddleware для формирования стора
-	combineReducers({heroes, filters}),
-	compose(
-		applyMiddleware(ReduxThunk, stringMiddleware), 
-		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-) 
+const store = configureStore({ // создаем стор с помощью тулкита
+	reducer: {heroes, filters}, // аналог combine reducers
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware),
+	devTools: process.env.NODE_ENV !== 'production', // указываем, что включать девтулз нужно только в том случае, если мы находимся не в продакшн билде
+	
+})
 
 export default store;
