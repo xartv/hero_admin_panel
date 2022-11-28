@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import heroes from '../reducers/heroes';
-import filters from '../reducers/filters';
+import heroes from '../components/heroesList/heroesSlice';
+import filters from '../components/heroesFilters/filtersSlice';
 
 const stringMiddleware = ({dispatch, getState}) => (next) => (action) => { // получаем диспэтч и гетСтэйт из стора в качестве первого аргумента, затем возвращаем функцию, в которую приходит первым аргументом диспэтч, которая в свою очередь получает первым аргументом экшн, которая уже возвращает новый экшн используя логику внутри
 	if (typeof action === 'string') {

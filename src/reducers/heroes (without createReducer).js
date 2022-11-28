@@ -1,8 +1,32 @@
+//import { createReducer } from '@reduxjs/toolkit';
+
+//import {
+//	fetchHeroes,
+//	heroesFetching,
+//	heroesFetched,
+//	heroesFetchingError,
+//	heroDeleting,
+//	heroDeleted,
+//	heroDeletingError,
+//	heroAdd,
+//} from '../actions';
+
 const initialState = {
 	heroes: [],
 	heroesLoadingStatus: 'idle',
 	heroesDeletingStatus: 'idle',
 }
+
+//const heroes = createReducer(initialState, builder => {
+//	builder
+//		.addCase(heroesFetching, state => {
+//			state.heroesLoadingStatus = 'loading';
+//		})
+//		.addCase(heroesFetched, (state, action) => {
+//			state.heroesLoadingStatus = 'idle';
+//			state.heroes = action.payload; 
+//		})
+//})
 
 const heroes = (state = initialState, action) => {
 	switch (action.type) {

@@ -1,5 +1,30 @@
 {
-  "heroes": [],
+  "heroes": [
+    {
+      "id": "05cdd30c-28e7-4c3d-b2ae-0cef92b24fac",
+      "name": "beast",
+      "description": "",
+      "element": "fire"
+    },
+    {
+      "id": "c663de39-cf18-4527-b544-2725e9f57a21",
+      "name": "Васильев Артем",
+      "description": "",
+      "element": "water"
+    },
+    {
+      "id": "d75cb32b-390a-4ded-b400-a24e61f224c7",
+      "name": "Васильев Артем",
+      "description": "",
+      "element": "wind"
+    },
+    {
+      "id": "2145bead-01cd-46c4-b9a2-098ea9cc7930",
+      "name": "Васильев Артем Игоревич",
+      "description": "",
+      "element": "earth"
+    }
+  ],
   "filters": [
     {
       "name": "all",
