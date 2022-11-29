@@ -1,40 +1,32 @@
 {
-  "heroes": [
-    {
-      "id": "a82a7cc4-96af-4282-a668-b5664985804d",
-      "name": "Artem",
-      "description": "",
-      "element": "fire"
-    },
-    {
-      "id": "6f4ffbc7-6fab-4eb9-80a8-29dfab67c439",
-      "name": "ARTEM VASILEV",
-      "description": "",
-      "element": "water"
-    }
-  ],
+  "heroes": [],
   "filters": [
     {
+      "id": "all",
       "name": "all",
       "title": "Все",
       "className": "btn btn-outline-dark"
     },
     {
+      "id": "fire",
       "name": "fire",
       "title": "Огонь",
       "className": "btn btn-danger"
     },
     {
+      "id": "water",
       "name": "water",
       "title": "Вода",
       "className": "btn btn-primary"
     },
     {
+      "id": "wind",
       "name": "wind",
       "title": "Ветер",
       "className": "btn btn-success"
     },
     {
+      "id": "earth",
       "name": "earth",
       "title": "Земля",
       "className": "btn btn-secondary"

@@ -1,14 +1,17 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import {useHttp} from '../../hooks/http.hook';
 import { heroAdd } from '../heroesList/heroesSlice';
-import { v4 as uuidv4 } from 'uuid';
+import { selectAll } from '../heroesFilters/filtersSlice';
+
 
 const HeroesAddForm = () => {
 	const dispatch = useDispatch();
 	const { request } = useHttp();
-	const { filters } = useSelector(state => state.filters); // не забыть, что теперь у нас комбинированный редьюсер
+	const filters = useSelector(selectAll); // не забыть, что теперь у нас комбинированный редьюсер
 
 	const onSubmit = ({name, description, element}) => {
 		const newHero = {

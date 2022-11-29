@@ -1,19 +1,20 @@
-import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { activeFilterChange, fetchFilters } from './filtersSlice';
+import { activeFilterChange, fetchFilters, selectAll } from './filtersSlice';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
+import store from '../../store';
 
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
-	const { filters, activeFilter, filtersLoadingStatus } = useSelector(state => state.filters);
+	const { activeFilter, filtersLoadingStatus } = useSelector(state => state.filters);
+	const filters = useSelector(selectAll);
+	//const filters = selectAll(store.getState()) // либо можно воспользоваться таким синтаксисом, когда мы напрямую вызываем селектор и передаем в него стэйт, получая его из глобального объекта store. По сути, то же самое происходит и выше, только там этот стор приходит автоматически с помощью useSelector.
 	const dispatch = useDispatch();
-	const {request} = useHttp();
 
 	useEffect(() => {
-		dispatch(fetchFilters(request))
+		dispatch(fetchFilters())
 		// eslint-disable-next-line
 	}, [])
 
