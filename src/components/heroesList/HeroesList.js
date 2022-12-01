@@ -1,53 +1,45 @@
-import {useHttp} from '../../hooks/http.hook';
-import { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
 
-import { heroDeleting, heroDeleted, heroDeletingError, fetchHeroes, filteredHeroesSelector} from './heroesSlice';
+import { useGetHeroesQuery, useDeleteHeroMutation } from '../../api/apiSlice';
 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
 import './heroesList.scss'
 
-//const MemoedHeroesListItem = memo(HeroesListItem); // можно мемоизировать дочерний компонент, снизим кол-во рендеров при диспатчах
-
 const HeroesList = () => {
 
-	const filteredHeroes = useSelector(filteredHeroesSelector) // используем наш кастомный селектор в качестве коллбэка для useSelector, этот селектор создается внутри соответствующего слайса
+	const {
+		data: heroes = [],
+		isLoading,
+		isError,
+	} = useGetHeroesQuery();
 
-	//const filteredHeroes = useSelector(state => { // не оптимизированный функционал, вызывает перерендеры, т.к. возвращаемый объект сравнивается по ссылке
-	//	if (state.filters.activeFilter === 'all') {
-	//		console.log('render')
-	//		return state.heroes.heroes;
-	//	} else {
-	//		return state.heroes.heroes.filter(hero => hero.element === state.filters.activeFilter)
-	//	}
-	//})
-	
-	const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
-	const dispatch = useDispatch();
-	const {request} = useHttp();
+	const [heroDelete] = useDeleteHeroMutation();
 
-	useEffect(() => {
-		dispatch(fetchHeroes());
+	const activeFilter = useSelector(state => state.filters.activeFilter);
+
+	const filteredHeroes = useMemo(() => { // используем собранные значения в итоговой функции
+		const filteredHeroes = heroes.slice()
+
+		if (activeFilter === 'all') {
+			return filteredHeroes;
+		} else {
+			return filteredHeroes.filter(hero => hero.element === activeFilter)
+		}
+	}, [heroes, activeFilter]) 
+
+	const onHeroDelete = useCallback((id) => {
+		heroDelete(id);
 		// eslint-disable-next-line
 	}, []);
 
-	const onHeroDelete = useCallback((id) => {
-		dispatch(heroDeleting());
-		request(`http://localhost:3001/heroes/${id}`, 'DELETE')
-			.then(() => {
-				dispatch(heroDeleted(id));
-			})
-			.catch(() => dispatch(heroDeletingError()));
-			// eslint-disable-next-line
-	}, [request]);
-
-	if (heroesLoadingStatus === "loading") {
+	if (isLoading) {
 			return <Spinner/>;
-	} else if (heroesLoadingStatus === "error") {
+	} else if (isError) {
 			return <h5 className="text-center mt-5">Ошибка загрузки</h5>
 	}
 

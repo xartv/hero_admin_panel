@@ -1,17 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import {useHttp} from '../../hooks/http.hook';
-import { heroAdd } from '../heroesList/heroesSlice';
 import { selectAll } from '../heroesFilters/filtersSlice';
+import { useCreateHeroMutation } from '../../api/apiSlice'
 
 
 const HeroesAddForm = () => {
-	const dispatch = useDispatch();
-	const { request } = useHttp();
 	const filters = useSelector(selectAll); // не забыть, что теперь у нас комбинированный редьюсер
+
+	const [createHero] = useCreateHeroMutation();
 
 	const onSubmit = ({name, description, element}) => {
 		const newHero = {
@@ -21,8 +20,7 @@ const HeroesAddForm = () => {
 			element,
 		}
 
-		request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
-			.then(() => dispatch(heroAdd(newHero)))
+		createHero(newHero).unwrap();
 	}
 
 	const createOptions = (optionsList) => {

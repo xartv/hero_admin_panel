@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { activeFilterChange, fetchFilters, selectAll } from './filtersSlice';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
-import store from '../../store';
 
 import Spinner from '../spinner/Spinner';
 
