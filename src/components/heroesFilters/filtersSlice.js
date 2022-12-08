@@ -1,5 +1,5 @@
-import { useHttp } from '../../hooks/http.hook';
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { useHttp } from '../../hooks/http.hook';
 
 const filtersAdapter = createEntityAdapter();
 
@@ -42,8 +42,7 @@ const filtersSlice = createSlice({
 
 const {actions, reducer} = filtersSlice
 
-export const {selectAll} = filtersAdapter.getSelectors(state => state.filters); // сразу вытаскиваем все фильтры через селектор, этот селектор передаем в useSelector в нужном компоненте, результатом сразу придет объект с фильтрами
-
+export const {selectAll} = filtersAdapter.getSelectors(state => state.filters);
 export default reducer;
 export const {
 	filtersFetching,

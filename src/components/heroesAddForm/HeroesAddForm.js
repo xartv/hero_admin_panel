@@ -1,6 +1,6 @@
+import { useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { selectAll } from '../heroesFilters/filtersSlice';
@@ -8,8 +8,7 @@ import { useCreateHeroMutation } from '../../api/apiSlice'
 
 
 const HeroesAddForm = () => {
-	const filters = useSelector(selectAll); // не забыть, что теперь у нас комбинированный редьюсер
-
+	const filters = useSelector(selectAll);
 	const [createHero] = useCreateHeroMutation();
 
 	const onSubmit = ({name, description, element}) => {
@@ -97,8 +96,7 @@ const HeroesAddForm = () => {
 					<button type="submit" className="btn btn-primary">Создать</button>
 			</Form>
 		</Formik>
-		
-)
+	)
 }
 
 export default HeroesAddForm;

@@ -4,18 +4,17 @@ import HeroesFilters from '../heroesFilters/HeroesFilters';
 
 import './app.scss';
 
-const App = () => {
-    
+const App = () => { 
     return (
-        <main className="app">
-            <div className="content">
-                <HeroesList/>
-                <div className="content__interactive">
-                    <HeroesAddForm/>
-                    <HeroesFilters/>
-                </div>
-            </div>
-        </main>
+			<main className="app">
+				<div className="content">
+					<HeroesList/>
+					<div className="content__interactive">
+						<HeroesAddForm/>
+						<HeroesFilters/>
+					</div>
+				</div>
+			</main>
     )
 }
 

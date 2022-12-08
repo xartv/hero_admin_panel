@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { activeFilterChange, fetchFilters, selectAll } from './filtersSlice';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
@@ -9,7 +10,6 @@ import Spinner from '../spinner/Spinner';
 const HeroesFilters = () => {
 	const { activeFilter, filtersLoadingStatus } = useSelector(state => state.filters);
 	const filters = useSelector(selectAll);
-	//const filters = selectAll(store.getState()) // либо можно воспользоваться таким синтаксисом, когда мы напрямую вызываем селектор и передаем в него стэйт, получая его из глобального объекта store. По сути, то же самое происходит и выше, только там этот стор приходит автоматически с помощью useSelector.
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -34,14 +34,14 @@ const HeroesFilters = () => {
 								active: filter.name === activeFilter
 							})
 							return (
-									<button
-										key={uuidv4()}
-										id={filter.name}
-										className={className}
-										onClick={() => dispatch(activeFilterChange(filter.name))}
-										>
-											{filter.title}
-										</button>
+								<button
+									key={uuidv4()}
+									id={filter.name}
+									className={className}
+									onClick={() => dispatch(activeFilterChange(filter.name))}
+									>
+										{filter.title}
+									</button>
 								)
 							})
 	}
