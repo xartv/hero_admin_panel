@@ -10,5 +10,5 @@ To run the project locally:
 * Сlone this repo `git clone https://github.com/xartv/hero_admin_panel.git`
 * Run `cd hero_admin_panel` to go to the directory
 * Run `npm install` to install all required dependencies
-* Run `npm start` to to start the local server (this project uses [create-react-app](https://create-react-app.dev/) and [concurrently](https://github.com/open-cli-tools/concurrently) to run [JSON-server](https://github.com/typicode/json-server) in parallel)
+* Run `npm start` to start the local server (this project uses [create-react-app](https://create-react-app.dev/) and [concurrently](https://github.com/open-cli-tools/concurrently) to run [JSON-server](https://github.com/typicode/json-server) in parallel)
 
